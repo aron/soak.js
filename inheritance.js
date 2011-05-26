@@ -21,18 +21,21 @@
    * Returns the extended object.
    */
   function mixin() {
-    var args = Array.prototype.slice.apply(arguments),
-        target = args.slice(-2)[0],
-        object = args.splice(-1)[0],
-        property;
+    var target  = arguments[0],
+        objects = Array.prototype.slice.call(arguments, 1),
+        count = objects.length,
+        index = 0, object, property;
 
-    for (property in object) {
-      if (object.hasOwnProperty(property)) {
-        target[property] = object[property];
+    for (; index < count; index += 1) {
+      object = objects[index];
+      for (property in object) {
+        if (object.hasOwnProperty(property)) {
+          target[property] = object[property];
+        }
       }
     }
 
-    return (args.length < 2) ? target : mixin.apply(null, args);
+    return target;
   }
   exports.mixin = mixin;
 

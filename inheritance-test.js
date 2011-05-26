@@ -64,6 +64,16 @@ vows.describe('inheritance').addBatch({
     'it should return the first argument': function () {
       var first = {};
       assert.strictEqual(mixin(first, {b: 2}), first);
+    },
+    'it should only modify the first argument': function () {
+      var a = {a: 1},
+          b = {b: 2},
+          c = {c: 3};
+
+      mixin(a, b, c);
+      assert.deepEqual(a, {a: 1, b: 2, c: 3});
+      assert.deepEqual(b, {b: 2});
+      assert.deepEqual(c, {c: 3});
     }
   }
 }).export(module);
