@@ -83,7 +83,9 @@ create(parent)
 
 Creates a new object instance and sets it's internal prototype to the parent
 argument provided. This is based on [Crockford's Object.create()][#create] but
-will use the native `Object.create()` if present.
+will use the native `Object.create()` if present. Unlike Object.create() this
+function will always return a new object even if a non object is provided as an
+argument.
 
 [#create]: http://javascript.crockford.com/prototypal.html
 

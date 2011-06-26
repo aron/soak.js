@@ -7,8 +7,7 @@
 
   var _inherit = exports.inherit,
       _create  = exports.create,
-      _mixin   = exports.mixin,
-      create;
+      _mixin   = exports.mixin;
 
   /* Public: Extends an object with the properties on successive arguments.
    *
@@ -50,12 +49,14 @@
   /* Used to create a new object in case calling the parent has side effects */
   function DummyObject() {}
 
-  /* Public: Creates a new object that inherits from the parent argument.
+  /* Public: Creates a new object that inherits from the proto argument.
    *
    * This function will use Object.create() if it exists otherwise falls back
    * to using a dummy constructor function to create a new object instance.
+   * Unlike Object.create() this function will always return a new object even
+   * if a non object is provided as an argument.
    *
-   * parent - An object to use for the new objects internal prototype.
+   * proto - An object to use for the new objects internal prototype.
    *
    * Examples
    *
@@ -67,10 +68,17 @@
    *
    * Returns a newly created object.
    */
-  create = exports.create = Object.create || function create(parent) {
-    DummyObject.prototype = parent || Object.prototype;
+  function create(proto) {
+    if (typeof proto !== 'object') {
+      return {};
+    }
+    else if (Object.create) {
+      return Object.create(proto);
+    }
+    DummyObject.prototype = proto;
     return new DummyObject();
-  };
+  }
+  exports.create = create;
 
   /* Removes the create function from the exports object and returns it. */
   exports.create.noConflict = function () {

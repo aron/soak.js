@@ -60,6 +60,9 @@ vows.describe('inheritance').addBatch({
       assert.equal(instance.a, parent.a);
       assert.equal(instance.b, parent.b);
       assert.equal(instance.c, parent.c);
+    },
+    'it should return a plain object if non object is passed': function () {
+      assert.deepEqual(create(), {});
     }
   },
   'mixin()': {
