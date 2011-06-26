@@ -66,6 +66,16 @@ vows.describe('inheritance').addBatch({
       assert.equal(instance.b, parent.b);
       assert.equal(instance.c, parent.c);
     },
+    'it should support browsers without Object.create()': function () {
+      Object.create = undefined;
+
+      var parent = {a: 1, b: 2, c: 3},
+          instance = create(parent);
+
+      assert.equal(instance.a, parent.a);
+      assert.equal(instance.b, parent.b);
+      assert.equal(instance.c, parent.c);
+    },
     'it should return a plain object if non object is passed': function () {
       assert.deepEqual(create(), {});
     }
