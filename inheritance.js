@@ -1,4 +1,4 @@
-/*  Inheritance.js - v0.1.x
+/*  Inheritance.js - v0.2
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
  *  More Information: http://github.com/aron/inheritance.js
@@ -91,6 +91,9 @@
    * if the methods argument has a property called "constructor" this will be
    * used as the constructor function.
    *
+   * Static methods will also be copied over from the parent object. However
+   * these will not be inheritied prototypally as with the instance methods.
+   *
    * parent     - A constructor Function to inherit from.
    * methods    - An Object literal of instance methods that are added to the
    *              constructors prototype.
@@ -120,7 +123,7 @@
     delete methods.constructor;
     mixin(Child.prototype, methods, {__super__: parent.prototype});
 
-    return mixin(Child, properties);
+    return mixin(Child, parent, properties);
   }
   exports.inherit = inherit;
 

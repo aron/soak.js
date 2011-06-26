@@ -7,6 +7,7 @@ var inherit = require('inheritance').inherit,
 function MyObject() {
   this.property = 'property';
 }
+MyObject.static1 = function () { return 'static1'; }
 MyObject.prototype.method1 = function () { return 'method1'; };
 MyObject.prototype.method2 = function () { return 'method2'; };
 
@@ -38,6 +39,10 @@ vows.describe('inheritance').addBatch({
 
       assert.equal(subInstance.property2, 'property2');
       assert.isFunction(subInstance.method3);
+    },
+    'it should copy over (static) properties from the parent': function () {
+      var SubObject = inherit(MyObject);
+      assert.isFunction(SubObject.static1);
     },
     'it should provide a __super__ property to point to its parent': function () {
       var SubObject = inherit(MyObject, {
