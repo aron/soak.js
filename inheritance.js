@@ -1,4 +1,4 @@
-/*  Inheritance.js - v0.1.0
+/*  Inheritance.js - v0.1.x
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
  *  More Information: http://github.com/aron/inheritance.js
@@ -6,7 +6,9 @@
 (function (exports) {
 
   var _inherit = exports.inherit,
-      _mixin  = exports.mixin;
+      _create  = exports.create,
+      _mixin   = exports.mixin,
+      create;
 
   /* Public: Extends an object with the properties on successive arguments.
    *
@@ -48,6 +50,34 @@
   /* Used to create a new object in case calling the parent has side effects */
   function DummyObject() {}
 
+  /* Public: Creates a new object that inherits from the parent argument.
+   *
+   * This function will use Object.create() if it exists otherwise falls back
+   * to using a dummy constructor function to create a new object instance.
+   *
+   * parent - An object to use for the new objects internal prototype.
+   *
+   * Examples
+   *
+   *   var appleObject = {color: 'green'}
+   *   var appleInstance = create(appleObject);
+   *
+   *   appleInstance.hasOwnProperty('color'); //=> false
+   *   appleInstance.color === appleObject.color; //=> true
+   *
+   * Returns a newly created object.
+   */
+  create = exports.create = Object.create || function create(parent) {
+    DummyObject.prototype = parent || Object.prototype;
+    return new DummyObject();
+  };
+
+  /* Removes the create function from the exports object and returns it. */
+  exports.create.noConflict = function () {
+    exports.create = _create;
+    return create;
+  };
+
   /* Public: Creates a new constructor function that inherits from a parent.
    * Instance and static methods can also be provided as additional arguments.
    * if the methods argument has a property called "constructor" this will be
@@ -72,12 +102,11 @@
    */
   function inherit(parent, methods, properties) {
     methods = methods || {};
-    DummyObject.prototype = (parent || {}).prototype;
 
     var Child = methods.hasOwnProperty('constructor') ?
                 methods.constructor : inherit.constructor(parent);
 
-    Child.prototype = new DummyObject();
+    Child.prototype = create(parent.prototype);
     Child.prototype.constructor = Child;
 
     delete methods.constructor;

@@ -1,4 +1,5 @@
 var inherit = require('inheritance').inherit,
+    create  = require('inheritance').create,
     mixin   = require('inheritance').mixin,
     assert  = require('assert'),
     vows    = require('vows');
@@ -49,6 +50,16 @@ vows.describe('inheritance').addBatch({
       }), subInstance = new SubObject();
 
       assert.equal(subInstance.method1(), 'mixined: method1');
+    }
+  },
+  'create()': {
+    'it should create an an object with the first argument as it\'s prototype': function () {
+      var parent = {a: 1, b: 2, c: 3},
+          instance = create(parent);
+
+      assert.equal(instance.a, parent.a);
+      assert.equal(instance.b, parent.b);
+      assert.equal(instance.c, parent.c);
     }
   },
   'mixin()': {
