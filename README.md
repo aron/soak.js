@@ -78,6 +78,29 @@ mixin({type: 'person'}, {name: 'bill', age: 20}, {age: 21});
 //=> {type: 'person', name: 'bill', age: 21}
 ```
 
+create(parent)
+--------------
+
+Creates a new object instance and sets it's internal prototype to the parent
+argument provided. This is based on [Crockford's Object.create()][#create] but
+will use the native `Object.create()` if present.
+
+[#create]: http://javascript.crockford.com/prototypal.html
+
+### Arguments
+
+ - `parent`: An object to use for the new objects internal prototype.
+
+### Examples
+
+```javascript
+var appleObject = {color: 'green'}
+var appleInstance = create(appleObject);
+
+appleInstance.hasOwnProperty('color'); //=> false
+appleInstance.color === appleObject.color; //=> true
+```
+
 License
 -------
 
