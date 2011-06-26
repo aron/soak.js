@@ -1,4 +1,4 @@
-/*  Inheritance.js - v0.2
+/*  Inheritance.js - v0.2.x
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
  *  More Information: http://github.com/aron/inheritance.js
@@ -8,6 +8,25 @@
   var _inherit = exports.inherit,
       _create  = exports.create,
       _mixin   = exports.mixin;
+
+  /* Helper function to create .noConflict() methods for each function.
+   *
+   * name     - Name of the property on the exports object.
+   * original - The original value of the property.
+   * local    - The local function.
+   *
+   * Examples
+   *
+   *   create.noConflict = createNoConflict('create', _create, create);
+   *
+   * Returns a .noConflict() function.
+   */
+  function createNoConflict(name, original, local) {
+    return function () {
+      exports[name] = original;
+      return local;
+    };
+  }
 
   /* Public: Extends an object with the properties on successive arguments.
    *
@@ -41,10 +60,7 @@
   exports.mixin = mixin;
 
   /* Removes the mixin function from the exports object and returns it. */
-  exports.mixin.noConflict = function () {
-    exports.mixin = _mixin;
-    return this;
-  };
+  exports.mixin.noConflict = createNoConflict('mixin', _mixin, mixin);
 
   /* Used to create a new object in case calling the parent has side effects */
   function DummyObject() {}
@@ -81,10 +97,7 @@
   exports.create = create;
 
   /* Removes the create function from the exports object and returns it. */
-  exports.create.noConflict = function () {
-    exports.create = _create;
-    return create;
-  };
+  exports.create.noConflict = createNoConflict('create', _create, create);
 
   /* Public: Creates a new constructor function that inherits from a parent.
    * Instance and static methods can also be provided as additional arguments.
@@ -142,9 +155,6 @@
   };
 
   /* Removes the inherit function from the exports object and returns it. */
-  exports.inherit.noConflict = function () {
-    exports.inherit = _inherit;
-    return this;
-  };
+  exports.inherit.noConflict = createNoConflict('inherit', _inherit, inherit);
 
 })(typeof exports !== 'undefined' ? exports : this);
