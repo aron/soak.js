@@ -2,6 +2,12 @@ Inheritance.js
 ==============
 
 Provides two simple methods for working with inheritance and objects. This
+library is heavily influenced by the simplistic prototypal inheritance
+provided in both [CoffeeScript][] and [Backbone][] and simply exists so that
+it can be included in other libraries.
+
+[CoffeeScript]: http://jashkenas.github.com/coffee-script/
+[Backbone]: http://documentcloud.github.com/backbone/
 
 inherit(Parent, methods, properties)
 ------------------------------------
@@ -48,11 +54,11 @@ MyObject.prototype.say = function () { return 'Hello'; }
 
 var SubClass = inherit(MyObject, {
   constructor: function SubClass() {
-    this.__super__.constructor.apply(this, arguments);
+    SubClass.__super__.constructor.apply(this, arguments);
     // Set up other properties.
   },
   say: function () {
-    return this.__super__.say.apply(this, arguments) + ' World';
+    return SubClass.__super__.say.apply(this, arguments) + ' World';
   }
 });
 
@@ -102,6 +108,22 @@ var appleInstance = create(appleObject);
 appleInstance.hasOwnProperty('color'); //=> false
 appleInstance.color === appleObject.color; //=> true
 ```
+
+Development
+-----------
+
+Tests require [Node][] and [Vows][] to run. To install Vows
+using [npm][] run:
+
+    $ npm install vows
+
+Then to run the tests simply enter:
+
+    $ vows inheritance-test.js
+
+[Node]: http://nodejs.org/
+[Vows]: http://vowsjs.org/
+[npm]:  http://npmjs.org/
 
 License
 -------
