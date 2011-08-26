@@ -1,0 +1,10 @@
+{
+  "name": "inheritance",
+  "description": "Simple functions for extending JavaScript objects",
+  "version": "0.2.1",
+  "keywords": ["inheritance", "inherits", "extend"],
+  "homepage": "http://github.com/aron/inheritance.js",
+  "main": "./inheritance.js",
+  "repository": "git://github.com/aron/inheritance.js.git",
+  "author": "Aron Carroll <self@aroncarroll.com> (http://aroncarroll.com/)"
+}
