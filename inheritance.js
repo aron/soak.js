@@ -145,7 +145,7 @@
    *
    * parent - The parent constructor Function.
    *
-   * Returns a new instance of the object.
+   * Returns a Function to be used as a constructor.
    */
   exports.inherit.constructor = function (parent) {
     return function Base() {
