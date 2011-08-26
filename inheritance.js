@@ -1,4 +1,4 @@
-/*  Inheritance.js - v0.2.x
+/*  Inheritance.js - v0.2.1
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
  *  More Information: http://github.com/aron/inheritance.js
@@ -133,24 +133,23 @@
     Child.prototype = create(parent.prototype);
     Child.prototype.constructor = Child;
 
-    delete methods.constructor;
-    mixin(Child.prototype, methods, {__super__: parent.prototype});
+    mixin(Child.prototype, methods);
 
-    return mixin(Child, parent, properties);
+    return mixin(Child, parent, properties, {__super__: parent.prototype});
   }
   exports.inherit = inherit;
 
-  /* Public: Creates a default constructor function that simply calls the
-   * parent constructor on the current instance. This method can be overridden
-   * to provide your own default constructor.
+  /* Public: A factory method that creates a default constructor function
+   * that simply calls the parent constructor of the current instance. This
+   * method can be overridden to provide your own default constructor.
    *
-   * parent - The parent constructor function.
+   * parent - The parent constructor Function.
    *
-   * Returns a new default constructor function.
+   * Returns a new instance of the object.
    */
   exports.inherit.constructor = function (parent) {
     return function Base() {
-      parent.apply(this, arguments);
+      parent.prototype.constructor.apply(this, arguments);
     };
   };
 

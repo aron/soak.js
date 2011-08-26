@@ -21,6 +21,17 @@ vows.describe('inheritance').addBatch({
       assert.equal(subInstance.property, 'property');
       assert.isFunction(subInstance.method1);
     },
+    'it should allow any number of levels of inheritance': function () {
+      var FirstSubObject  = inherit(MyObject),
+          SecondSubObject = inherit(FirstSubObject),
+          ThirdSubObject  = inherit(SecondSubObject),
+          subInstance = new ThirdSubObject();
+
+      assert.instanceOf(subInstance, MyObject);
+      assert.instanceOf(subInstance, FirstSubObject);
+      assert.instanceOf(subInstance, SecondSubObject);
+      assert.instanceOf(subInstance, ThirdSubObject);
+    },
     'it should mixin the constructor with instance methods': function () {
       var SubObject = inherit(MyObject, {
         method3: function () {}
@@ -44,13 +55,13 @@ vows.describe('inheritance').addBatch({
       var SubObject = inherit(MyObject);
       assert.isFunction(SubObject.static1);
     },
-    'it should provide a __super__ property to point to its parent': function () {
+    'it should provide a static __super__ property to point to its parent': function () {
       var SubObject = inherit(MyObject, {
         constructor: function MyConstructor() {
-          this.__super__.constructor.call(this, arguments);
+          SubObject.__super__.constructor.call(this, arguments);
         },
         method1: function () {
-           return 'mixined: ' + this.__super__.method1.call(this, arguments);
+           return 'mixined: ' + SubObject.__super__.method1.call(this, arguments);
         }
       }), subInstance = new SubObject();
 
