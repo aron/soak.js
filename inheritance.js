@@ -57,10 +57,9 @@
 
     return target;
   }
-  exports.mixin = mixin;
 
   /* Removes the mixin function from the exports object and returns it. */
-  exports.mixin.noConflict = createNoConflict('mixin', _mixin, mixin);
+  mixin.noConflict = createNoConflict('mixin', _mixin, mixin);
 
   /* Used to create a new object in case calling the parent has side effects */
   function DummyObject() {}
@@ -94,10 +93,9 @@
     DummyObject.prototype = proto;
     return new DummyObject();
   }
-  exports.create = create;
 
   /* Removes the create function from the exports object and returns it. */
-  exports.create.noConflict = createNoConflict('create', _create, create);
+  create.noConflict = createNoConflict('create', _create, create);
 
   /* Public: Creates a new constructor function that inherits from a parent.
    * Instance and static methods can also be provided as additional arguments.
@@ -137,7 +135,6 @@
 
     return mixin(Child, parent, properties, {__super__: parent.prototype});
   }
-  exports.inherit = inherit;
 
   /* Public: A factory method that creates a default constructor function
    * that simply calls the parent constructor of the current instance. This
@@ -147,13 +144,20 @@
    *
    * Returns a Function to be used as a constructor.
    */
-  exports.inherit.constructor = function (parent) {
+  inherit.constructor = function (parent) {
     return function Base() {
       parent.prototype.constructor.apply(this, arguments);
     };
   };
 
   /* Removes the inherit function from the exports object and returns it. */
-  exports.inherit.noConflict = createNoConflict('inherit', _inherit, inherit);
+  inherit.noConflict = createNoConflict('inherit', _inherit, inherit);
+
+  // Export module to environment.
+  if (typeof exports.define === 'function' && exports.amd) {
+    exports.define('inheritance', {mixin: mixin, inherit: inherit, create: create});
+  } else {
+    mixin(exports, {mixin: mixin, inherit: inherit, create: create});
+  }
 
 })(typeof exports !== 'undefined' ? exports : this);
