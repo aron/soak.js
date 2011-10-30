@@ -1,7 +1,7 @@
 Inheritance.js
 ==============
 
-Provides two simple methods for working with inheritance and objects. This
+Provides simple methods for working with inheritance and objects. This
 library is heavily influenced by the simplistic prototypal inheritance
 provided in both [CoffeeScript][] and [Backbone][] and simply exists so that
 it can be included in other libraries.
@@ -9,7 +9,7 @@ it can be included in other libraries.
 [CoffeeScript]: http://jashkenas.github.com/coffee-script/
 [Backbone]: http://documentcloud.github.com/backbone/
 
-inherit(Parent, methods, properties)
+inherit(Parent, instance, object)
 ------------------------------------
 
 Creates a new constructor function that inherits from a parent constructor.
@@ -20,10 +20,10 @@ used as the constructor function.
 ### Arguments
 
  - `parent`: A constructor Function to inherit from.
- - `methods`: An Object literal of instance methods that are added to the
+ - `instance`: An Object literal of instance methods that are added to the
     constructors prototype (optional).
- - `properties` - An Object literal of static/class methods to add to the
-   constructor itself (optional).
+ - `object`: An Object literal of static/class methods to add to the
+    constructor itself (optional).
 
 ### Examples
 
