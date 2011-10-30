@@ -54,11 +54,13 @@ MyObject.prototype.say = function () { return 'Hello'; }
 
 var SubClass = inherit(MyObject, {
   constructor: function SubClass() {
-    SubClass.__super__.constructor.apply(this, arguments);
+    SubClass.apply(this, arguments);
     // Set up other properties.
   },
   say: function () {
     return SubClass.__super__.say.apply(this, arguments) + ' World';
+    // Same as:
+    // return MyObject.prototype.say.apply(this, arguments) + ' World';
   }
 });
 
