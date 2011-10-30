@@ -1,7 +1,7 @@
-/*  Inheritance.js - v0.2.1
+/*  Soak.js - v0.2.2
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
- *  More Information: http://github.com/aron/inheritance.js
+ *  More Information: http://github.com/aron/bequest.js
  */
 (function (exports) {
 
@@ -155,7 +155,7 @@
 
   // Export module to environment.
   if (typeof exports.define === 'function' && exports.amd) {
-    exports.define('inheritance', {mixin: mixin, inherit: inherit, create: create});
+    exports.define('soak', {mixin: mixin, inherit: inherit, create: create});
   } else {
     mixin(exports, {mixin: mixin, inherit: inherit, create: create});
   }

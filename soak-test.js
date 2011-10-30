@@ -1,6 +1,6 @@
-var inherit = require('inheritance').inherit,
-    create  = require('inheritance').create,
-    mixin   = require('inheritance').mixin,
+var inherit = require('soak').inherit,
+    create  = require('soak').create,
+    mixin   = require('soak').mixin,
     assert  = require('assert'),
     vows    = require('vows');
 

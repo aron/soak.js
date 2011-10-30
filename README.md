@@ -1,5 +1,5 @@
-Inheritance.js
-==============
+Soak.js
+=======
 
 Provides simple methods for working with inheritance and objects. This
 library is heavily influenced by the simplistic prototypal inheritance
@@ -111,6 +111,37 @@ appleInstance.hasOwnProperty('color'); //=> false
 appleInstance.color === appleObject.color; //=> true
 ```
 
+Use in Non Browser Environments
+-------------------------------
+
+Usage with Node:
+
+```javascript
+var inherit  = require('soak').inherit;
+var mixin    = require('soak').mixin;
+var MyObject = require('./lib/my-object');
+
+module.exports = inherit(MyObject, {
+  instanceMethod: function () {}
+}, {
+  staticProp: 'some-string',
+  staticMethod: function () {}
+});
+```
+
+Usage with AMD compatible script loader:
+
+```javascript
+define(['soak', './lib/my-object'], function (soak, MyObject) {
+  return soak.inherit(MyObject, {
+    instanceMethod: function () {}
+  }, {
+    staticProp: 'some-string',
+    staticMethod: function () {}
+  });
+});
+```
+
 Development
 -----------
 
@@ -121,7 +152,7 @@ using [npm][] run:
 
 Then to run the tests simply enter:
 
-    $ vows inheritance-test.js
+    $ vows soak-test.js
 
 [Node]: http://nodejs.org/
 [Vows]: http://vowsjs.org/
