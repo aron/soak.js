@@ -44,8 +44,9 @@ typeof instance.instanceMethod //=> "function"
 typeof SubClass.staticMethod   //=> "function"
 ```
 
-A `__super__` property is made available to all child classes that points to
-the parent `prototype` object. This can be used in methods to call the parent.
+Calling parent methods is the same as pure prototypal inheritance, just call the
+parent method using `.call()` or `.apply()` passing in `this` as the first argument
+to set the appropriate context.
 
 ```javascript
 // Original function to inherit from.
@@ -54,13 +55,14 @@ MyObject.prototype.say = function () { return 'Hello'; }
 
 var SubClass = inherit(MyObject, {
   constructor: function SubClass() {
-    SubClass.apply(this, arguments);
+   // Call the parent constructor.
+    MyObject.apply(this, arguments);
+
     // Set up other properties.
   },
   say: function () {
-    return SubClass.__super__.say.apply(this, arguments) + ' World';
-    // Same as:
-    // return MyObject.prototype.say.apply(this, arguments) + ' World';
+    // Call the parent method providing `this` to set the context.
+    return MyObject.prototype.say.apply(this, arguments) + ' World';
   }
 });
 
