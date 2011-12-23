@@ -1,7 +1,7 @@
 /*  Soak.js - v0.2.2
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
- *  More Information: http://github.com/aron/bequest.js
+ *  More Information: http://github.com/aron/soak.js
  */
 (function (exports) {
 
@@ -28,7 +28,7 @@
     };
   }
 
-  /* Public: Extends an object with the properties on successive arguments.
+  /* Public: Extends an object with the properties of successive arguments.
    *
    * target     - The Object that is to be extended.
    * arguments* - Objects to extend the target with.
@@ -146,7 +146,7 @@
    */
   inherit.constructor = function (parent) {
     return function Base() {
-      parent.prototype.constructor.apply(this, arguments);
+      parent.apply(this, arguments);
     };
   };
 
