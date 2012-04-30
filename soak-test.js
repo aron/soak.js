@@ -7,7 +7,7 @@ var inherit = require('soak').inherit,
 function MyObject() {
   this.property = 'property';
 }
-MyObject.static1 = function () { return 'static1'; }
+MyObject.static1 = function () { return 'static1'; };
 MyObject.prototype.method1 = function () { return 'method1'; };
 MyObject.prototype.method2 = function () { return 'method2'; };
 
@@ -61,11 +61,23 @@ vows.describe('inheritance').addBatch({
           SubObject.__super__.constructor.call(this, arguments);
         },
         method1: function () {
-           return 'mixined: ' + SubObject.__super__.method1.call(this, arguments);
+          return 'mixined: ' + SubObject.__super__.method1.call(this, arguments);
         }
       }), subInstance = new SubObject();
 
       assert.equal(subInstance.method1(), 'mixined: method1');
+    }
+  },
+  'Base()': {
+    'it should have an extend method': function () {
+      var Base = inherit.constructor(Object);
+      assert.isFunction(Base.extend);
+    },
+    'it should have an extend method that creates a child constructor': function () {
+      var Base = inherit.constructor(Object),
+          Child = Base.extend();
+
+      assert.instanceOf(new Child(), Base);
     }
   },
   'create()': {

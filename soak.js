@@ -1,4 +1,4 @@
-/*  Soak.js - v0.2.2
+/*  Soak.js - v0.3.0
  *  Copyright 2011, Aron Carroll
  *  Released under the MIT license
  *  More Information: http://github.com/aron/soak.js
@@ -140,14 +140,28 @@
    * that simply calls the parent constructor of the current instance. This
    * method can be overridden to provide your own default constructor.
    *
+   * This Base constructor has an .extend() method that will create a subclass
+   * of the Base object. Which is the same as doing inherit(Base);
+   *
    * parent - The parent constructor Function.
+   *
+   * Example:
+   *
+   * var Base  = inherit.constructor(Object);
+   * var Child = Base.extend();
    *
    * Returns a Function to be used as a constructor.
    */
   inherit.constructor = function (parent) {
-    return function Base() {
+    function Base() {
       parent.apply(this, arguments);
+    }
+
+    Base.extend = function extend() {
+      return inherit.apply(null, [].concat.apply([this], arguments));
     };
+
+    return Base;
   };
 
   /* Removes the inherit function from the exports object and returns it. */
