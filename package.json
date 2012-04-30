@@ -1,10 +1,10 @@
 {
   "name": "soak",
   "description": "Simple functions for extending JavaScript objects",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "keywords": ["inheritance", "inherits", "extend"],
   "homepage": "http://github.com/aron/soak.js",
-  "main": "./soak.js",
+  "main": "soak.js",
   "repository": "git://github.com/aron/soak.js.git",
-  "author": "Aron Carroll <self@aroncarroll.com> (http://aroncarroll.com/)"
+  "author": "Aron Carroll <code@aroncarroll.com> (http://aroncarroll.com/)"
 }
