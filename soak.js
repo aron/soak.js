@@ -168,7 +168,7 @@
   inherit.noConflict = createNoConflict('inherit', _inherit, inherit);
 
   // Export module to environment.
-  if (typeof exports.define === 'function' && exports.amd) {
+  if (typeof exports.define === 'function' && exports.define.amd) {
     exports.define('soak', {mixin: mixin, inherit: inherit, create: create});
   } else {
     mixin(exports, {mixin: mixin, inherit: inherit, create: create});
